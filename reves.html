@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interpretation des Reves — Marco Medium</title>
+<meta name="description" content="Decryptez les messages caches de vos reves avec Marco Medium. Interpretation symbolique et spirituelle personnalisee.">
+<meta name="theme-color" content="#7c3aed">
+<link rel="canonical" href="https://www.marcomedium.com/reves.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" href="favicon-180.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C979FB1QEG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-C979FB1QEG');gtag('config','AW-11435134690');gtag('config','GT-MKP7HSD');</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="js/main.js" defer></script>
+<style>
+.theme-chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.theme-chip{padding:10px 18px;border:2px solid var(--border-light);border-radius:50px;background:var(--bg-card);cursor:pointer;font-size:0.88rem;transition:var(--transition)}
+.theme-chip:hover,.theme-chip.active{border-color:var(--primary);background:rgba(124,58,237,0.06);color:var(--primary)}
+.moon-phases{display:flex;justify-content:center;gap:12px;margin:20px 0;font-size:1.5rem}
+.moon-phases span{opacity:0.4;transition:var(--transition)}.moon-phases span.active{opacity:1;transform:scale(1.3)}
+.symbols-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin:20px 0}
+.symbol-tag{background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:12px;text-align:center;font-size:0.82rem}
+.symbol-tag .sym{font-size:1.5rem;display:block;margin-bottom:4px}
+.dream-domains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+.dream-domain{background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:20px;text-align:center}
+.dream-domain h4{font-family:var(--font);font-size:0.9rem;margin-bottom:8px;color:var(--primary)}
+#dream-result{display:none;margin-top:30px}
+@media(max-width:768px){.dream-domains{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page-loader" style="position:fixed;inset:0;background:#faf8f6;z-index:99999;display:flex;align-items:center;justify-content:center"><div style="font-family:'Playfair Display',serif;font-size:2rem;color:#7c3aed;font-weight:700">Marco Medium</div></div>
+<div class="custom-cursor" style="position:fixed;width:40px;height:40px;border:1.5px solid rgba(124,58,237,0.4);border-radius:50%;pointer-events:none;z-index:99998;mix-blend-mode:difference"></div>
+<div class="cursor-dot" style="position:fixed;width:6px;height:6px;background:#7c3aed;border-radius:50%;pointer-events:none;z-index:99999;margin:-3px 0 0 -3px"></div>
+
+<nav class="navbar"><div class="nav-inner">
+<a href="index.html" class="nav-logo"><div class="logo-icon">M</div>Marco <span>Medium</span></a>
+<ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="horoscope.html">Horoscope</a></li><li><a href="numerologie.html">Numerologie</a></li><li><a href="oracle.html">Oracle</a></li><li><a href="reves.html" class="active">Reves</a></li><li><a href="blog.html">Blog</a></li><li><a href="tel:+41218623326" class="nav-cta magnetic">Consulter</a></li></ul>
+<button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="mobile-menu"><a href="index.html">Accueil</a><a href="horoscope.html">Horoscope</a><a href="numerologie.html">Numerologie</a><a href="oracle.html">Oracle</a><a href="reves.html">Reves</a><a href="blog.html">Blog</a><a href="tel:+41218623326" class="btn btn-primary">Appeler</a></div>
+
+<section class="page-hero">
+<div class="container">
+<span class="eyebrow">✦ Interpretation des reves</span>
+<h1 class="split-animate">Les Reves <em>Parlent</em></h1>
+<p class="section-subtitle">Chaque reve est un message de votre ame. Decryptez les symboles et decouvrez ce que l'inconscient vous revele.</p>
+<p class="breadcrumb"><a href="index.html">Accueil</a> / Reves</p>
+</div>
+</section>
+
+<section class="section">
+<div class="container" style="max-width:700px">
+<div class="card reveal-scale" style="padding:40px">
+  <div class="form-group"><label>Decrivez votre reve</label><textarea class="form-control" id="dream-text" rows="5" placeholder="Cette nuit, j'ai reve que je volais au-dessus d'une foret sombre..."></textarea></div>
+  <label style="font-weight:500;margin-bottom:8px;display:block">Themes presents dans votre reve</label>
+  <div class="theme-chips" id="theme-chips">
+    <span class="theme-chip" data-theme="eau">💧 Eau</span>
+    <span class="theme-chip" data-theme="feu">🔥 Feu</span>
+    <span class="theme-chip" data-theme="mer">🌊 Mer</span>
+    <span class="theme-chip" data-theme="foret">🌲 Foret</span>
+    <span class="theme-chip" data-theme="maison">🏠 Maison</span>
+    <span class="theme-chip" data-theme="vol">✈️ Vol</span>
+    <span class="theme-chip" data-theme="serpent">🐍 Serpent</span>
+    <span class="theme-chip" data-theme="poursuite">👁️ Poursuite</span>
+    <span class="theme-chip" data-theme="mort">💀 Mort</span>
+    <span class="theme-chip" data-theme="enfant">👶 Enfant</span>
+    <span class="theme-chip" data-theme="obscurite">🌑 Obscurite</span>
+    <span class="theme-chip" data-theme="lumiere">☀️ Lumiere</span>
+  </div>
+  <div class="moon-phases"><span>🌑</span><span>🌒</span><span>🌓</span><span>🌔</span><span class="active">🌕</span><span>🌖</span><span>🌗</span><span>🌘</span></div>
+  <button class="btn btn-primary btn-lg" style="width:100%;margin-top:12px" id="dream-interpret">🌙 Interpreter mon reve</button>
+</div>
+
+<div id="dream-result" class="card" style="padding:40px">
+  <h2 id="dream-title" style="text-align:center;margin-bottom:8px"></h2>
+  <p id="dream-subtitle" style="text-align:center;color:var(--text-muted);margin-bottom:20px"></p>
+  <div class="symbols-grid" id="dream-symbols"></div>
+  <p id="dream-interp" style="line-height:1.9;color:var(--text-light);margin:20px 0"></p>
+  <div class="dream-domains" id="dream-domains"></div>
+  <div class="glass" style="padding:20px;margin-top:20px;border-radius:var(--radius-sm);text-align:center">
+    <p id="dream-advice" style="font-style:italic;color:var(--text-light)"></p>
+    <strong style="font-size:0.85rem;color:var(--primary)">— Marco Medium</strong>
+  </div>
+  <div style="text-align:center;margin-top:24px"><button class="btn btn-secondary" onclick="document.getElementById('dream-result').style.display='none'">↺ Interpreter un autre reve</button></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="background:var(--bg-warm)">
+<div class="container text-center">
+<div class="cards-grid stagger-children" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+  <a href="horoscope.html" class="card card-tilt" style="text-decoration:none;color:inherit"><div class="card-icon">♈</div><h3>Horoscope</h3><p>Votre theme astral du jour</p></a>
+  <a href="oracle.html" class="card card-tilt" style="text-decoration:none;color:inherit"><div class="card-icon">🃏</div><h3>Oracle</h3><p>Un message de guidance</p></a>
+  <a href="numerologie.html" class="card card-tilt" style="text-decoration:none;color:inherit"><div class="card-icon">🔢</div><h3>Numerologie</h3><p>Votre chemin de vie</p></a>
+  <a href="tel:+41218623326" class="card card-tilt" style="text-decoration:none;color:inherit"><div class="card-icon">📞</div><h3>Consultation</h3><p>Seance privee avec Marco</p></a>
+</div>
+</div>
+</section>
+
+<section class="section"><div class="container"><div class="cta-banner reveal-scale"><h2>Besoin d'une interpretation plus profonde ?</h2><p>Marco analyse vos reves en detail lors d'une consultation privee.</p><div class="cta-phone">📞 +41 21 862 33 26</div><div class="cta-rate">CHF 2.– / minute</div><a href="tel:+41218623326" class="btn magnetic phone-link">Appeler</a></div></div></section>
+
+<footer class="footer"><div class="container"><div class="footer-grid">
+<div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon" style="background:linear-gradient(135deg,#a78bfa,#c084fc)">M</div> Marco <span>Medium</span></a><p style="margin-top:16px">Voyance et guidance en Suisse.</p></div>
+<div><h4>Services</h4><ul class="footer-links"><li><a href="horoscope.html">Horoscope</a></li><li><a href="numerologie.html">Numerologie</a></li><li><a href="oracle.html">Oracle</a></li><li><a href="reves.html">Reves</a></li></ul></div>
+<div><h4>Contact</h4><ul class="footer-links"><li><a href="tel:+41218623326">+41 21 862 33 26</a></li><li><a href="https://wa.me/41782535452" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:info@marcomedium.com">info@marcomedium.com</a></li></ul></div>
+</div><div class="footer-bottom"><span>&copy; 2026 Marcomedium.com</span></div></div></footer>
+<div class="cookie-banner"><p>Ce site utilise des cookies.</p><button class="btn btn-primary btn-sm cookie-accept">Accepter</button></div>
+
+<script>
+const symbols={eau:{sym:'💧',name:'Eau',cat:'Nature',text:'Emotions profondes, purification interieure, flux de la vie.'},feu:{sym:'🔥',name:'Feu',cat:'Nature',text:'Passion, transformation, energie creatrice intense.'},mer:{sym:'🌊',name:'Mer',cat:'Nature',text:"Inconscient profond, immensité des émotions, liberté."},foret:{sym:'🌲',name:'Foret',cat:'Lieu',text:'Aspects inconnus de soi, peurs cachees, exploration interieure.'},maison:{sym:'🏠',name:'Maison',cat:'Lieu',text:'Psyche, identite personnelle, fondations de la vie.'},vol:{sym:'✈️',name:'Vol',cat:'Action',text:'Desir de liberte, ambitions elevees, transcendance.'},serpent:{sym:'🐍',name:'Serpent',cat:'Animal',text:'Transformation profonde, sagesse ancienne, guerison.'},poursuite:{sym:'👁️',name:'Poursuite',cat:'Action',text:'Fuite devant ses peurs, situations non resolues.'},mort:{sym:'💀',name:'Mort',cat:'Emotion',text:'Fin de cycle, renaissance, transformation profonde.'},enfant:{sym:'👶',name:'Enfant',cat:'Emotion',text:'Enfant interieur, innocence, nouveaux departs.'},obscurite:{sym:'🌑',name:'Obscurite',cat:'Nature',text:'Inconnu, peurs refoulees, ombre jungienne.'},lumiere:{sym:'☀️',name:'Lumiere',cat:'Nature',text:'Conscience, clarte spirituelle, eveil.'}};
+let selectedThemes=new Set();
+document.querySelectorAll('.theme-chip').forEach(c=>{c.addEventListener('click',()=>{c.classList.toggle('active');const t=c.dataset.theme;selectedThemes.has(t)?selectedThemes.delete(t):selectedThemes.add(t)})});
+
+const interps=["Votre reve revele un processus de transformation interieure en cours. Les symboles presents indiquent que votre inconscient travaille activement a resoudre une situation qui vous preoccupe. Les energies en jeu suggerent un mouvement vers la clarte et la resolution.","Ce reve est porteur d'un message important. Les images qui se sont manifestees ne sont pas le fruit du hasard — elles refletent des verites profondes que votre conscience diurne n'ose pas explorer. Prenez le temps d'integrer ces revelations.","Les symboles de votre reve forment un tableau coherent qui pointe vers un changement imminent. Votre ame prepare le terrain pour une nouvelle etape de votre evolution personnelle. Accueillez ce qui vient avec confiance."];
+const loveM=["Vos relations evoluent vers plus d'authenticite.","Un lien affectif demande votre attention.","L'amour se manifeste sous une forme inattendue."];
+const workM=["Votre intuition professionnelle est juste.","Un projet merite d'etre reconsidere.","De nouvelles opportunites emergent bientot."];
+const spiritM=["Votre eveil spirituel s'accelere.","Meditez sur les messages recus.","Votre connexion interieure se renforce."];
+const advices=["Votre reve est un miroir de votre ame. Prenez le temps de l'ecouter avec bienveillance.","Les symboles de vos reves sont des cles. Utilisez-les pour ouvrir les portes de votre comprehension interieure.","Ce reve vous invite a faire confiance au processus de transformation en cours."];
+
+document.getElementById('dream-interpret').addEventListener('click',()=>{
+  const text=document.getElementById('dream-text').value.trim();
+  if(!text&&selectedThemes.size===0){alert('Decrivez votre reve ou selectionnez des themes.');return}
+  const sd=Date.now();
+  const themes=selectedThemes.size>0?[...selectedThemes]:['lumiere','eau'];
+  document.getElementById('dream-title').textContent='Votre Reve Decode';
+  document.getElementById('dream-subtitle').textContent=themes.length+' symbole'+(themes.length>1?'s':'')+' detecte'+(themes.length>1?'s':'');
+  document.getElementById('dream-symbols').innerHTML=themes.map(t=>{const s=symbols[t];return '<div class="symbol-tag"><span class="sym">'+s.sym+'</span>'+s.name+'</div>'}).join('');
+  let interpText=interps[sd%interps.length]+' ';
+  themes.forEach(t=>{interpText+=symbols[t].text+' '});
+  document.getElementById('dream-interp').textContent=interpText;
+  document.getElementById('dream-domains').innerHTML='<div class="dream-domain"><h4>❤️ Amour</h4><p style="color:var(--text-light);font-size:0.88rem">'+loveM[sd%loveM.length]+'</p></div><div class="dream-domain"><h4>💼 Professionnel</h4><p style="color:var(--text-light);font-size:0.88rem">'+workM[sd%workM.length]+'</p></div><div class="dream-domain"><h4>✨ Spirituel</h4><p style="color:var(--text-light);font-size:0.88rem">'+spiritM[sd%spiritM.length]+'</p></div>';
+  document.getElementById('dream-advice').textContent=advices[sd%advices.length];
+  document.getElementById('dream-result').style.display='block';
+  document.getElementById('dream-result').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
