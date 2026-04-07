@@ -23,36 +23,97 @@ function initLenis() {
   gsap.ticker.lagSmoothing(0);
 }
 
-// --- Custom Cursor ---
+// --- Modern Custom Cursor with Glow Trail ---
 function initCursor() {
   const cursor = document.querySelector('.custom-cursor');
   const cursorDot = document.querySelector('.cursor-dot');
   if (!cursor || !cursorDot || window.innerWidth < 1024) return;
 
-  let mx = 0, my = 0, cx = 0, cy = 0, dx = 0, dy = 0;
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  let velX = 0, velY = 0;
+  let isHovering = false;
+
+  // Create trail particles
+  const trailCount = 8;
+  const trails = [];
+  for (let i = 0; i < trailCount; i++) {
+    const trail = document.createElement('div');
+    trail.className = 'cursor-trail';
+    trail.style.cssText = `position:fixed;width:${6 - i * 0.5}px;height:${6 - i * 0.5}px;background:rgba(108,60,225,${0.3 - i * 0.03});border-radius:50%;pointer-events:none;z-index:99997;transition:none;`;
+    document.body.appendChild(trail);
+    trails.push({ el: trail, x: 0, y: 0 });
+  }
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX;
     my = e.clientY;
-    gsap.to(cursorDot, { x: mx, y: my, duration: 0.1 });
   });
 
   function animateCursor() {
-    cx += (mx - cx) * 0.12;
-    cy += (my - cy) * 0.12;
-    cursor.style.transform = `translate(${cx - 20}px, ${cy - 20}px)`;
+    // Smooth follow with velocity
+    const prevCx = cx, prevCy = cy;
+    cx += (mx - cx) * 0.15;
+    cy += (my - cy) * 0.15;
+    velX = cx - prevCx;
+    velY = cy - prevCy;
+    const speed = Math.sqrt(velX * velX + velY * velY);
+
+    // Morph cursor based on speed
+    const stretch = Math.min(speed * 0.8, 15);
+    const angle = Math.atan2(velY, velX) * (180 / Math.PI);
+    const scaleX = 1 + stretch * 0.02;
+    const scaleY = 1 - stretch * 0.015;
+
+    if (!isHovering) {
+      cursor.style.transform = `translate(${cx - 20}px, ${cy - 20}px) rotate(${angle}deg) scale(${scaleX}, ${scaleY})`;
+    } else {
+      cursor.style.transform = `translate(${cx - 30}px, ${cy - 30}px)`;
+    }
+
+    // Dot follows precisely
+    gsap.to(cursorDot, { x: mx - 3, y: my - 3, duration: 0.08, ease: 'power2.out' });
+
+    // Cursor glow intensity based on speed
+    const glowIntensity = Math.min(speed * 2, 30);
+    cursorDot.style.boxShadow = `0 0 ${10 + glowIntensity}px rgba(108,60,225,${0.4 + speed * 0.02}), 0 0 ${20 + glowIntensity * 2}px rgba(108,60,225,${0.15 + speed * 0.01})`;
+
+    // Trail particles follow with increasing delay
+    trails.forEach((t, i) => {
+      const delay = (i + 1) * 0.06;
+      t.x += (mx - t.x) * (0.15 - i * 0.012);
+      t.y += (my - t.y) * (0.15 - i * 0.012);
+      t.el.style.transform = `translate(${t.x - 3}px, ${t.y - 3}px)`;
+      t.el.style.opacity = speed > 2 ? (0.5 - i * 0.05) : 0;
+    });
+
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
 
-  // Hover effects on links and buttons
-  document.querySelectorAll('a, button, .card, .magnetic').forEach(el => {
+  // Enhanced hover effects
+  document.querySelectorAll('a, button, .card, .magnetic, input, textarea, select').forEach(el => {
     el.addEventListener('mouseenter', () => {
+      isHovering = true;
       cursor.classList.add('cursor-hover');
+      cursorDot.classList.add('cursor-hover');
+      gsap.to(cursor, { width: 60, height: 60, duration: 0.3, ease: 'power2.out' });
     });
     el.addEventListener('mouseleave', () => {
+      isHovering = false;
       cursor.classList.remove('cursor-hover');
+      cursorDot.classList.remove('cursor-hover');
+      gsap.to(cursor, { width: 40, height: 40, duration: 0.3, ease: 'elastic.out(1, 0.5)' });
     });
+  });
+
+  // Click effect
+  document.addEventListener('mousedown', () => {
+    gsap.to(cursor, { scale: 0.8, duration: 0.15, ease: 'power2.in' });
+    gsap.to(cursorDot, { scale: 0.5, duration: 0.15 });
+  });
+  document.addEventListener('mouseup', () => {
+    gsap.to(cursor, { scale: 1, duration: 0.4, ease: 'elastic.out(1, 0.4)' });
+    gsap.to(cursorDot, { scale: 1, duration: 0.3 });
   });
 }
 
