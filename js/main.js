@@ -383,20 +383,26 @@ function initLoader() {
   const loader = document.querySelector('.page-loader');
   if (!loader) return;
 
-  const tl = gsap.timeline();
-  tl.to('.loader-progress', {
-    scaleX: 1,
-    duration: 0.8,
-    ease: 'power2.inOut',
-  })
-  .to(loader, {
-    yPercent: -100,
-    duration: 0.7,
-    ease: 'power3.inOut',
-    delay: 0.1,
-  })
-  .set(loader, { display: 'none' });
+  try {
+    const tl = gsap.timeline();
+    tl.to('.loader-progress', {
+      scaleX: 1,
+      duration: 0.8,
+      ease: 'power2.inOut',
+    })
+    .to(loader, {
+      yPercent: -100,
+      duration: 0.7,
+      ease: 'power3.inOut',
+      delay: 0.1,
+    })
+    .set(loader, { display: 'none' });
+  } catch(e) {
+    loader.style.display = 'none';
+  }
 }
+// Fallback: always hide loader after 3s even if JS fails
+setTimeout(function(){ var l=document.querySelector('.page-loader'); if(l) l.style.display='none'; }, 3000);
 
 // --- Hero Section Animation Timeline ---
 function initHeroAnimation() {
